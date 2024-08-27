@@ -12,6 +12,10 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   useEffect(() => {
     const fetchModelSpaces = async () => {
       try {
@@ -39,10 +43,6 @@ const Home = () => {
 
     return () => clearTimeout(timeoutId);
   }, [searchTerm, modelSpaces]);
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
 
   return (
     <div className={styles.container}>

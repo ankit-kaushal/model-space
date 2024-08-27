@@ -14,6 +14,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './styles.module.css';
+import convertToBase64 from '../../helpers/convertToBase64';
 
 
 const renderOutputValue = (key, value, outputs) => {
@@ -105,7 +106,7 @@ const ModelSpace = () => {
         const file = formData[key].file.originFileObj || formData[key].file;
         if (file instanceof Blob) {
           try {
-            formData[key] = await toBase64(file);
+            formData[key] = await convertToBase64(file);
           } catch (error) {
             message.error('Error converting file to base64.');
           }
@@ -125,17 +126,7 @@ const ModelSpace = () => {
       setLoading(false);
     }
   };
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = (error) => reject(error);
-      if (file instanceof Blob) {
-        reader.readAsDataURL(file);
-      } else {
-        reject(new Error('File is not of type Blob.'));
-      }
-    });
+
 
   const getInputField = (input) => {    
     switch (input.type) {
