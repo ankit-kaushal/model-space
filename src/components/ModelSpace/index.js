@@ -3,18 +3,15 @@ import axios from 'axios';
 import {
   Button,
   Form,
-  Input,
-  InputNumber,
-  Switch,
-  Upload,
   message,
   Spin,
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
-import styles from './styles.module.css';
-import convertToBase64 from '../../helpers/convertToBase64';
 
+import convertToBase64 from '../../helpers/convertToBase64';
+import getInputField from '../../helpers/getInputField';
+
+import styles from './styles.module.css';
 
 const renderOutputValue = (key, value, outputs) => {
     const output = outputs.find((out) => out.name === key);
@@ -72,8 +69,9 @@ const renderOutputValue = (key, value, outputs) => {
 
 const ModelSpace = () => {
   const { id } = useParams();
-  const [modelSpace, setModelSpace] = useState(null);
   const [form] = Form.useForm();
+
+  const [modelSpace, setModelSpace] = useState(null);
   const [output, setOutput] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
@@ -124,32 +122,7 @@ const ModelSpace = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-
-  const getInputField = (input) => {    
-    switch (input.type) {
-      case 'text':
-        return <Input placeholder={input.description} />;
-      case 'number':
-        return <InputNumber placeholder={input.description} className={styles.full_width} />;
-      case 'bool':
-        return <Switch />;
-      case 'image':
-      case 'audio':
-        return (
-          <Upload
-            accept={input.type + '/*'}
-            beforeUpload={() => false}
-            maxCount={1}
-          >
-            <Button icon={<UploadOutlined />}>Upload {input.type}</Button>
-          </Upload>
-        );
-      default:
-        return null;
-    }
-  };
+};
 
   const handleRegenerate = () => {
     form.resetFields();
@@ -159,7 +132,7 @@ const ModelSpace = () => {
   return (
     <div className={styles.container}>
       {fetchLoading ? (
-        <div className={styles.spinner}>
+        <div className={styles.loader}>
           <Spin size="large" />
         </div>
       ) : modelSpace ? (
@@ -238,7 +211,5 @@ const ModelSpace = () => {
     </div>
   );
 };
-
-  
 
 export default ModelSpace;

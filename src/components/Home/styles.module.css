@@ -8,7 +8,7 @@
   text-align: center;
   font-size: 3rem;
   margin-bottom: 30px;
-  color: #001e39;
+  color: #001629;
 }
 
 .search_bar {
@@ -18,7 +18,7 @@
   display: block;
 }
 
-.spinner {
+.loader {
   display: flex;
   justify-content: center;
   align-items: center;

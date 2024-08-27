@@ -8,12 +8,12 @@
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: #1890ff;
+    color: #002140;
 }
 
 .description {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 40px;
     color: #595959;
 }
@@ -40,13 +40,9 @@
     margin-left: 0;
 }
 
-.full_width {
-    width: 100%;
-}
-
 .predict_button {
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: #1778ff;
+    border-color: #1778ff;
     height: 40px;
     font-size: 16px;
 }
@@ -106,7 +102,7 @@
     color: #bfbfbf;
 }
 
-.spinner {
+.loader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,6 +111,6 @@
 
 .error_message {
     text-align: center;
-    color: #ff4d4f;
+    color: red;
     font-size: 1.2rem;
 }

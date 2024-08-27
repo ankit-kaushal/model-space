@@ -22,8 +22,8 @@ const Home = () => {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/model-spaces`);
         setModelSpaces(response.data.data);
         setFilteredSpaces(response.data.data);
-      } catch (error) {
-        console.error('Error fetching model spaces:', error);
+      } catch (err) {
+        console.error('Error fetching model spaces:', err);
       } finally {
         setLoading(false);
       }
@@ -55,7 +55,7 @@ const Home = () => {
         allowClear
       />
       {loading ? (
-        <div className={styles.spinner}>
+        <div className={styles.loader}>
           <Spin size="large" />
         </div>
       ) : filteredSpaces.length > 0 ? (
