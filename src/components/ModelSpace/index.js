@@ -12,7 +12,6 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
-import classNames from 'classnames';
 import styles from './styles.module.css';
 import convertToBase64 from '../../helpers/convertToBase64';
 
@@ -172,10 +171,7 @@ const ModelSpace = () => {
               form={form}
               layout="vertical"
               onFinish={onFinish}
-              className={classNames(styles.form, {
-                [styles.form_centered]: !outputVisible,
-                [styles.form_shifted]: outputVisible,
-              })}
+              className={`${styles.form} ${!outputVisible ? styles.form_centered : styles.form_shifted}`}
             >
               {modelSpace.inputs.map((input) => (
                 <Form.Item
@@ -214,9 +210,7 @@ const ModelSpace = () => {
               )}
             </Form>
             <div
-              className={classNames(styles.output_container, {
-                [styles.output_visible]: outputVisible,
-              })}
+              className={`${styles.output_container} ${outputVisible ? styles.output_visible : ''}`}
             >
               {output ? (
                 <div className={styles.output_content}>
