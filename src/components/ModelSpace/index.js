@@ -5,8 +5,11 @@ import {
   Form,
   message,
   Spin,
+  Empty,
 } from 'antd';
-import { useParams } from 'react-router-dom';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+
+import { useParams, useNavigate } from 'react-router-dom';
 
 import convertToBase64 from '../../helpers/convertToBase64';
 import getInputField from '../../helpers/getInputField';
@@ -69,6 +72,7 @@ const renderOutputValue = (key, value, outputs) => {
 
 const ModelSpace = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const [modelSpace, setModelSpace] = useState(null);
@@ -118,7 +122,7 @@ const ModelSpace = () => {
       setOutput(response.data.data);
       setOutputVisible(true);
     } catch (error) {
-      message.error('Error predicting output.');
+      message.error('Error predicting output.', error);
     } finally {
       setLoading(false);
     }
@@ -129,6 +133,10 @@ const ModelSpace = () => {
     setOutputVisible(false);
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.container}>
       {fetchLoading ? (
@@ -137,7 +145,21 @@ const ModelSpace = () => {
         </div>
       ) : modelSpace ? (
         <>
-          <h1 className={styles.heading}>{modelSpace.name}</h1>
+          <div className={styles.header}>
+          <Button
+              type="link"
+              onClick={handleBack}
+              className={styles.back_button}
+            >
+              <ArrowLeftOutlined /> Back
+            </Button>
+            <img
+              src={modelSpace.avatar}
+              alt={modelSpace.name}
+              className={styles.avatar}
+            />
+            <h1 className={styles.heading}>{modelSpace.name}</h1>
+          </div>
           <p className={styles.description}>{modelSpace.description}</p>
           <div className={styles.content}>
             <Form
@@ -204,8 +226,8 @@ const ModelSpace = () => {
           </div>
         </>
       ) : (
-        <div className={styles.error_message}>
-          <p>Unable to load model space details.</p>
+        <div className={styles.empty_state}>
+          <Empty description="Failed to load model space details" />
         </div>
       )}
     </div>
